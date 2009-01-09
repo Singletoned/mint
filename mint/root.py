@@ -8,7 +8,6 @@ def application(environ, start_response):
     default_video = u'intro'
     video_name = environ[u'PATH_INFO'].strip(u'/') or default_video
     
-    response = Response(mimetype='text/html')
     if video_name.startswith('tags'):
         tag_name = video_name.split('/', 1)[1]
         body = tag_name
