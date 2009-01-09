@@ -1,0 +1,4 @@
+# In order to set this up run
+python setup.py develop
+nosetests # to make sure it's working
+paster serve devel_config.ini
