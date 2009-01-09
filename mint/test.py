@@ -37,3 +37,10 @@ def test_flibble_page_returns_404():
     )
     print u'who the hell called their video `flibble`'
 
+def test_oil_on_ice_video():
+    """`/oil_on_ice` video exists"""
+    res = app.get('/oil_on_ice')
+    assert_true(
+     'div class="videoplayer" id="oil_on_ice"' in res.body,
+     "Oil on Ice video should be there"
+    )
