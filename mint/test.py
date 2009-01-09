@@ -38,9 +38,19 @@ def test_flibble_page_returns_404():
     print u'who the hell called their video `flibble`'
 
 def test_oil_on_ice_video():
-    """`/oil_on_ice` video exists"""
+    """`/oil_on_ice` video exists and has tags"""
     res = app.get('/oil_on_ice')
     assert_true(
      'div class="videoplayer" id="oil_on_ice"' in res.body,
      "Oil on Ice video should be there"
     )
+    assert_true(
+     'div id="tags"' in res.body,
+     "Tags div should be there"
+    )
+
+    for tag in ['feature', 'arctic', 'water']:
+        assert_true(
+            tag in res.body,
+            "%s tag should be in body" % tag
+        )

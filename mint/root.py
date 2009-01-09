@@ -1,8 +1,9 @@
+from model import videos
 
 def application(environ, start_response):
     default_video = u'intro'
     video_name = environ[u'PATH_INFO'].strip(u'/') or default_video
-    if video_name == u'flibble':
+    if video_name not in videos:
         start_response('404 NOT FOUND', [('Content-type', 'text/html')])
         content = [
             '<html><head><title>Not Found!!!</title></head>\n',
@@ -10,11 +11,12 @@ def application(environ, start_response):
             '</body></html>'
             ]
     else:
+        video = videos[video_name]
         start_response('200 OK', [('Content-type', 'text/html')])
         content = [
             '<html><head><title>Welcome to mint!</title></head>\n',
             '<body><h1>Welcome to mint!</h1>\n',
-            '<div class="videoplayer" id="%s"></div>' % video_name,
+            video.get_html(),
             '</body></html>'
             ]
     return content
