@@ -48,9 +48,27 @@ def test_oil_on_ice_video():
      'div id="tags"' in res.body,
      "Tags div should be there"
     )
-
+    
     for tag in ['feature', 'arctic', 'water']:
         assert_true(
             tag in res.body,
             "%s tag should be in body" % tag
         )
+    
+
+def test_tag_page():
+    res = app.get('/tags/feature')
+    assert_true(
+        '200' in res.status,
+        u'Server should return OK'
+    )
+    print res
+    assert_true(
+        'feature' in res.body,
+        u'correct tag should be in body'
+    )
+    assert_true(
+        'intro' in res.body,
+        u'intro should be a featured video'
+    )
+
