@@ -1,4 +1,3 @@
-import cgi
 
 def application(environ, start_response):
     default_video = u'intro'
