@@ -1,5 +1,6 @@
-from webtest import TestApp
+from webtest import TestApp, AppError
 from root import application
+from nose.tools import assert_raises, assert_true
 
 app = TestApp(application)
 
@@ -23,7 +24,16 @@ def test_intro_video_on_root():
     assert 'div class="videoplayer" id="intro"' in res.body
 
 def test_intro_video_page():
-    """Root has a `intro` video"""
+    """`/intro` has a `intro` video"""
     res = app.get('/intro')
     assert 'div class="videoplayer" id="intro"' in res.body
+
+def test_flibble_page_returns_404():
+    """`/flibble` isn't a page"""
+    assert_raises(
+        AppError,
+        app.get,
+        '/flibble'
+    )
+    print u'who the hell called their video `flibble`'
 
