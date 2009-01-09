@@ -10,7 +10,9 @@ class Video(object):
     
     def get_html(self):
         markup = '<div class="videoplayer" id="%s"></div>\n' % self.name
-        markup += '<div id="tags">%s</div>\n' % ', '.join([tag for tag in self.tags])
+        link = u'<a href="/tags/%(name)s">%(name)s</a>'
+        links = [link % {'name': tag} for tag in self.tags]
+        markup += '<div id="tags">%s</div>\n' % links
         return markup
     
 
@@ -23,14 +25,14 @@ videos = dict(
 
 def get_videos_with_tag(tag):
     """ Returns a list of video objects with the given tag
-        >>> get_videos_with_tag('feature') # doctest:+ELLIPSIS
+        >>> get_videos_with_tag('feature') # doctest: +ELLIPSIS
         [<Video name=...]
     """
     return [video for video in videos.values() if tag in video.tags]
 
 def get_videos_with_tag_html(tag):
     """ Returns a list of video objects with the given tag
-        >>> get_videos_with_tag_html('feature') # doctest:+ELLIPSIS
+        >>> get_videos_with_tag_html('feature') # doctest: +ELLIPSIS
         u'<a href=...'
     """
     videos = get_videos_with_tag(tag)

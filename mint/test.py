@@ -27,6 +27,8 @@ def test_intro_video_page():
     """`/intro` has a `intro` video"""
     res = app.get('/intro')
     assert 'div class="videoplayer" id="intro"' in res.body
+    res = res.click('feature')
+    test_tag_page(res)
 
 def test_flibble_page_returns_404():
     """`/flibble` isn't a page"""
@@ -55,11 +57,11 @@ def test_oil_on_ice_video(res=None):
             tag in res.body,
             "%s tag should be in body" % tag
         )
-    
 
-def test_tag_page():
+def test_tag_page(res=None):
     """check contents of a tag page | check links on page return real video pages"""
-    res = app.get('/tags/feature')
+    if res == None:
+        res = app.get('/tags/feature')
     assert_true(
         '200' in res.status,
         u'Server should return OK'
@@ -82,5 +84,3 @@ def test_tag_page():
 def test_rules_the_world():
     print u'well done you broke the mould'
     assert True
-
-
