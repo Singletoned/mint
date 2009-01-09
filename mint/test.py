@@ -16,4 +16,8 @@ def test_mint_in_body():
     """Root contains `mint` in body text"""
     res = app.get('/')
     assert "mint" in res.body
-    
+
+def test_video_on_page():
+    """Root has a `intro` video"""
+    res = app.get('/')
+    assert 'div class="videoplayer" id="intro"' in res.body

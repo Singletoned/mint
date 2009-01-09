@@ -2,12 +2,12 @@ import cgi
 
 def application(environ, start_response):
     start_response('200 OK', [('Content-type', 'text/html')])
-    greeting = u"Welcome to mint!"
     content = [
-        '<html><head><title>%s</title></head>\n' % greeting,
-        '<body><h1>%s!</h1>\n' % greeting,
+        '<html><head><title>Welcome to mint!</title></head>\n',
+        '<body><h1>Welcome to mint!</h1>\n',
+        '<div class="videoplayer" id="intro"></div>',
+        '</body></html>'
         ]
-    content.append('</body></html>')
     return content
 
 def appfactory(global_config, **local_config):
