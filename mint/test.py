@@ -37,9 +37,10 @@ def test_flibble_page_returns_404():
     )
     print u'who the hell called their video `flibble`'
 
-def test_oil_on_ice_video():
+def test_oil_on_ice_video(res=None):
     """`/oil_on_ice` video exists and has tags"""
-    res = app.get('/oil_on_ice')
+    if not res:
+        res = app.get('/oil_on_ice')
     assert_true(
      'div class="videoplayer" id="oil_on_ice"' in res.body,
      "Oil on Ice video should be there"
@@ -57,6 +58,7 @@ def test_oil_on_ice_video():
     
 
 def test_tag_page():
+    """check contents of a tag page | check links on page return real video pages"""
     res = app.get('/tags/feature')
     assert_true(
         '200' in res.status,
@@ -71,4 +73,14 @@ def test_tag_page():
         'intro' in res.body,
         u'intro should be a featured video'
     )
+    
+    res = res.click('oil_on_ice')
+    test_oil_on_ice_video(res)
+    
+
+
+def test_rules_the_world():
+    print u'well done you broke the mould'
+    assert True
+
 
